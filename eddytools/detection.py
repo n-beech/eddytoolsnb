@@ -452,7 +452,7 @@ def detect_OW_core(data, det_param, OW, vort, t, OW_thr, e1f, e2f,
         has_internal_ext = (OW.isel(time=t).values[interior].min()
                             < OW.isel(time=t).values[exterior].min())
         if (eddy_area_within_limits & eddy_not_too_thin
-            & eddy_no_horseshoe & has_internal_ext):
+            & eddy_no_horseshoe & has_internal_ext ):
             # If the region is not too small and not too big, extract
             # eddy information
             eddi[e]['time'] = OW.isel(time=t)['time'].values
@@ -782,7 +782,8 @@ def detect_OW(data, det_param, ow_var, vort_var,
        or det_param['lat2'] > np.around(data['lat'].max())):
         raise ValueError('`det_param`: min. and/or max. of latitude range'
                          + ' are outside the region contained in the dataset')
-    if det_param['calendar'] == 'standard':
+    #NB added noleap option
+    if det_param['calendar'] == 'standard' or det_param['calendar'] == 'noleap':
         start_time = np.datetime64(det_param['start_time'])
         end_time = np.datetime64(det_param['end_time'])
     elif det_param['calendar'] == '360_day':
@@ -978,7 +979,8 @@ def detect_SSH(data, det_param, ssh_var,
         or det_param['lat2'] > np.around(data['lat'].max())):
         raise ValueError('`det_param`: min. and/or max. of latitude range'
                          + ' are outside the region contained in the dataset')
-    if det_param['calendar'] == 'standard':
+    #NB added noleap option
+    if det_param['calendar'] == 'standard' or det_param['calendar'] == 'noleap':
         start_time = np.datetime64(det_param['start_time'])
         end_time = np.datetime64(det_param['end_time'])
     elif det_param['calendar'] == '360_day':

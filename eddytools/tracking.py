@@ -423,6 +423,9 @@ def prepare(trac_param):
     # February, which becomes the 28th Febuary... so we consruct a no-leap
     # year and change the one date later if necessary!
     if trac_param['calendar'] == 'standard':
+        #NB 23.11.23 - changed from noleap to standard for fesom calendar
+        calendar_to_use = 'standard'
+    elif trac_param['calendar'] == 'noleap':
         calendar_to_use = 'noleap'
     elif trac_param['calendar'] == '360_day':
         calendar_to_use = '360_day'
@@ -1018,7 +1021,7 @@ def track(tracking_params, in_file=True):
             if file_found:
                 terminate_all = False
             else:
-                terminate_all = True
+                terminate_all = True 
         else:
             try:
                 trac_param['dict'][tt][0]['time']
